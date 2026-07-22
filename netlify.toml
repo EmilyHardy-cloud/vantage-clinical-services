@@ -1,0 +1,22 @@
+[build]
+  command = "bun run build"
+  publish = ".next"
+
+[build.environment]
+  NODE_VERSION = "20"
+  NEXT_TELEMETRY_DISABLED = "1"
+
+# Next.js 16 on Netlify — uses the official Next.js Runtime (auto-detected).
+# The [[plugins]] line below is optional; Netlify will auto-install it if missing.
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+# Security headers — important for a corporate B2B site.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(), microphone=(), camera=()"
+    Strict-Transport-Security = "max-age=63072000; includeSubDomains; preload"
